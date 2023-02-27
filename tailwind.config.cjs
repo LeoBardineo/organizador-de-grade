@@ -5,6 +5,6 @@ module.exports = {
   theme: {
     extend: {}
   },
-  plugins: [],
+  plugins: ["prettier-plugin-tailwindcss"],
   darkMode: "class"
 };
