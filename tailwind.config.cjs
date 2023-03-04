@@ -3,8 +3,11 @@
 module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
-    extend: {}
+    extend: {},
+    fontFamily: {
+      Inter: ["Inter"],
+    },
   },
   plugins: ["prettier-plugin-tailwindcss"],
-  darkMode: "class"
+  darkMode: "class",
 };
