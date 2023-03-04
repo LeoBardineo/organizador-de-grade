@@ -26,7 +26,7 @@ enum Dia {
   qua = 3,
   qui = 4,
   sex = 5,
-  sab = 6
+  sab = 6,
 }
 
 const Grade = () => {
@@ -36,17 +36,17 @@ const Grade = () => {
       nome: "materia",
       horarios: {
         seg: { hInicial: 8, horas: 2 },
-        qua: { hInicial: 8, horas: 2 }
-      }
+        qua: { hInicial: 8, horas: 2 },
+      },
     },
     {
       id: "B",
       nome: "materia 2",
       horarios: {
         seg: { hInicial: 10, horas: 2 },
-        qua: { hInicial: 10, horas: 2 }
-      }
-    }
+        qua: { hInicial: 10, horas: 2 },
+      },
+    },
   ];
   const [materias] = useState<IMateria[]>(materiasSelecionadas);
 
@@ -63,14 +63,23 @@ const Grade = () => {
     const tarr2 = [];
 
     for (let i = 0; i <= qtdLinhas; i++) {
-      tarr.push(<div className="">{hInicio + i * intervalo}</div>);
+      tarr.push(
+        <div className="flex items-center justify-center py-1">{`${
+          hInicio + i * intervalo
+        }:00`}</div>
+      );
     }
 
     let count = 0;
     for (let i = 0; i <= qtdLinhas; i++) {
       const newArr = [];
       for (let j = 0; j < 7; j++) {
-        newArr.push(<div className="">{++count}</div>);
+        newArr.push(
+          <div className="flex items-center justify-center border-l-2">
+            {/* só pra ver como fica sem */}
+            {/*++count*/}
+          </div>
+        );
       }
 
       tarr2.push(newArr);
@@ -103,31 +112,45 @@ const Grade = () => {
   }, [materias]);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex gap-5">
-        <div className=""></div>
+    <div className="flex flex-col ">
+      <div className="flex gap-5 border-b-2 py-6">
+        <div className="w-32"></div>
 
         <div className="flex gap-x-5">
-          <div>dom</div>
-          <div>seg</div>
-          <div>ter</div>
-          <div>qua</div>
-          <div>qui</div>
-          <div>sex</div>
-          <div>sab</div>
+          <div className="flex w-32 items-center justify-center text-base font-bold text-neutral-800">
+            DOM
+          </div>
+          <div className="flex w-32 items-center justify-center text-base font-bold text-neutral-800">
+            SEG
+          </div>
+          <div className="flex w-32 items-center justify-center text-base font-bold text-neutral-800">
+            TER
+          </div>
+          <div className="flex w-32 items-center justify-center text-base font-bold text-neutral-800">
+            QUA
+          </div>
+          <div className="flex w-32 items-center justify-center text-base font-bold text-neutral-800">
+            QUI
+          </div>
+          <div className="flex w-32 items-center justify-center text-base font-bold text-neutral-800">
+            SEX
+          </div>
+          <div className="flex w-32 items-center justify-center text-base font-bold text-neutral-800">
+            SAB
+          </div>
         </div>
       </div>
 
       <div className="flex gap-5">
         <div className="">
-          <div className="horarios">
+          <div className="w-32 text-base font-bold text-neutral-800">
             {arr.map((item, i) => (
               <div key={i}>{item}</div>
             ))}
           </div>
         </div>
 
-        <div className="grid-rows-11 grid w-full grid-cols-7">
+        <div className="grid-rows-11 grid w-full grid-cols-7 ">
           {arr2.flat()}
         </div>
       </div>
