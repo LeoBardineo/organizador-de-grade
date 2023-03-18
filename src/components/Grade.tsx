@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Card from "./Card";
 
 interface Horario {
   hInicial: number;
@@ -26,7 +27,7 @@ enum Dia {
   qua = 3,
   qui = 4,
   sex = 5,
-  sab = 6,
+  sab = 6
 }
 
 const Grade = () => {
@@ -36,17 +37,17 @@ const Grade = () => {
       nome: "materia",
       horarios: {
         seg: { hInicial: 8, horas: 2 },
-        qua: { hInicial: 8, horas: 2 },
-      },
+        qua: { hInicial: 8, horas: 2 }
+      }
     },
     {
       id: "B",
       nome: "materia 2",
       horarios: {
-        seg: { hInicial: 10, horas: 2 },
-        qua: { hInicial: 10, horas: 2 },
-      },
-    },
+        seg: { hInicial: 13, horas: 2 },
+        qua: { hInicial: 10, horas: 2 }
+      }
+    }
   ];
   const [materias] = useState<IMateria[]>(materiasSelecionadas);
 
@@ -54,61 +55,57 @@ const Grade = () => {
     hFinal = 23,
     intervalo = 1;
   const qtdLinhas = (hFinal - hInicio) / intervalo;
-  const [arr, setArr] = useState<JSX.Element[]>([]);
-  const [arr2, setArr2] = useState<JSX.Element[][]>([]);
+  const [colunaHorarios, setColunaHorarios] = useState<JSX.Element[]>([]);
+  const [cards, setCards] = useState<JSX.Element[]>([]);
 
   // useEffect inicial
   useEffect(() => {
-    const tarr = [];
-    const tarr2 = [];
+    const arrHorarios = [];
 
     for (let i = 0; i <= qtdLinhas; i++) {
-      tarr.push(
+      arrHorarios.push(
         <div className="flex items-center justify-center py-1">{`${
           hInicio + i * intervalo
         }:00`}</div>
       );
     }
 
-    let count = 0;
-    for (let i = 0; i <= qtdLinhas; i++) {
-      const newArr = [];
-      for (let j = 0; j < 7; j++) {
-        newArr.push(
-          <div className="flex items-center justify-center border-l-2">
-            {/* só pra ver como fica sem */}
-            {/*++count*/}
-          </div>
-        );
-      }
-
-      tarr2.push(newArr);
-    }
-    setArr(tarr);
-    setArr2(tarr2);
+    setColunaHorarios(arrHorarios);
   }, []);
 
   // useEffect materias
   useEffect(() => {
-    console.log(arr2.length);
-    if (!arr2.length) return;
+    console.log(cards.length);
+    // if (!arr2.length) return;
 
-    const newArr = [...arr2];
+    const arrCards: JSX.Element[] = [...cards];
 
+    let count = 0;
     materias.forEach((item) => {
       const horarios = item.horarios;
       for (const key in horarios) {
+        const hInicial = horarios[key as keyof typeof horarios]?.hInicial;
         const horas = horarios[key as keyof typeof horarios]?.horas;
 
         if (horas == undefined) return;
+        if (hInicial == undefined) return;
 
-        const jump = Dia[key as keyof typeof horarios];
-        for (let i = 0; i <= horas; i++)
-          newArr[horas + i][jump] = <div className="bg-red-500">0</div>;
+        const jump = Dia[key as keyof typeof horarios] + 1;
+        arrCards[count] = (
+          <Card
+            key={`${item.id}+${count}`}
+            id={item.id}
+            nome={item.nome}
+            hInicial={hInicial - 5}
+            horas={horas}
+            jump={jump}
+          />
+        );
+        count++;
       }
     });
 
-    setArr2(newArr);
+    setCards(arrCards);
   }, [materias]);
 
   return (
@@ -144,15 +141,13 @@ const Grade = () => {
       <div className="flex gap-5">
         <div className="">
           <div className="w-32 text-base font-bold text-neutral-800">
-            {arr.map((item, i) => (
+            {colunaHorarios.map((item, i) => (
               <div key={i}>{item}</div>
             ))}
           </div>
         </div>
 
-        <div className="grid-rows-11 grid w-full grid-cols-7 ">
-          {arr2.flat()}
-        </div>
+        <div className="grade">{cards.flat()}</div>
       </div>
     </div>
   );

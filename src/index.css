@@ -11,3 +11,87 @@
   -moz-osx-font-smoothing: grayscale;
   font-family: Inter;
 }
+
+.grade {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(18, minmax(0, 1fr));
+}
+
+.card {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.row-start-1 {
+  grid-row-start: 1;
+}
+.row-start-2 {
+  grid-row-start: 2;
+}
+.row-start-3 {
+  grid-row-start: 3;
+}
+.row-start-4 {
+  grid-row-start: 4;
+}
+.row-start-5 {
+  grid-row-start: 5;
+}
+.row-start-6 {
+  grid-row-start: 6;
+}
+.row-start-7 {
+  grid-row-start: 7;
+}
+.row-start-8 {
+  grid-row-start: 8;
+}
+
+.row-end-1 {
+  grid-row-end: 1;
+}
+.row-end-2 {
+  grid-row-end: 2;
+}
+.row-end-3 {
+  grid-row-end: 3;
+}
+.row-end-4 {
+  grid-row-end: 4;
+}
+.row-end-5 {
+  grid-row-end: 5;
+}
+.row-end-6 {
+  grid-row-end: 6;
+}
+.row-end-7 {
+  grid-row-end: 7;
+}
+.row-end-8 {
+  grid-row-end: 8;
+}
+.row-end-9 {
+  grid-row-end: 9;
+}
+.row-end-10 {
+  grid-row-end: 10;
+}
+
+.col-start-1 {
+  grid-column-start: 1;
+}
+.col-start-2 {
+  grid-column-start: 2;
+}
+.col-start-3 {
+  grid-column-start: 3;
+}
+.col-start-4 {
+  grid-column-start: 4;
+}
+.col-start-5 {
+  grid-column-start: 5;
+}
