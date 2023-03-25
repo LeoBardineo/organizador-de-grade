@@ -1,25 +1,6 @@
 import { useEffect, useState } from "react";
 import Card from "./Card";
 
-interface Horario {
-  hInicial: number;
-  horas: number;
-}
-
-interface IMateria {
-  id: string;
-  nome: string;
-  horarios: {
-    dom?: Horario;
-    seg?: Horario;
-    ter?: Horario;
-    qua?: Horario;
-    qui?: Horario;
-    sex?: Horario;
-    sab?: Horario;
-  };
-}
-
 enum Dia {
   dom = 0,
   seg = 1,
@@ -49,7 +30,7 @@ const Grade = () => {
       }
     }
   ];
-  const [materias] = useState<IMateria[]>(materiasSelecionadas);
+  const [materias] = useState<Materia[]>(materiasSelecionadas);
 
   const hInicio = 6,
     hFinal = 23,
@@ -58,7 +39,7 @@ const Grade = () => {
   const [colunaHorarios, setColunaHorarios] = useState<JSX.Element[]>([]);
   const [cards, setCards] = useState<JSX.Element[]>([]);
 
-  // useEffect inicial
+  // seta a coluna de horários na esquerda
   useEffect(() => {
     const arrHorarios = [];
 
@@ -73,11 +54,8 @@ const Grade = () => {
     setColunaHorarios(arrHorarios);
   }, []);
 
-  // useEffect materias
+  // coloca os cards na grade
   useEffect(() => {
-    console.log(cards.length);
-    // if (!arr2.length) return;
-
     const arrCards: JSX.Element[] = [...cards];
 
     let count = 0;
@@ -86,19 +64,19 @@ const Grade = () => {
       for (const key in horarios) {
         const hInicial = horarios[key as keyof typeof horarios]?.hInicial;
         const horas = horarios[key as keyof typeof horarios]?.horas;
+        const dia = Dia[key as keyof typeof horarios];
 
         if (horas == undefined) return;
         if (hInicial == undefined) return;
 
-        const jump = Dia[key as keyof typeof horarios] + 1;
         arrCards[count] = (
           <Card
             key={`${item.id}+${count}`}
             id={item.id}
             nome={item.nome}
-            hInicial={hInicial - 5}
+            hInicial={hInicial}
             horas={horas}
-            jump={jump}
+            dia={dia}
           />
         );
         count++;
