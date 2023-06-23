@@ -38,6 +38,13 @@ const Grade = () => {
   const qtdLinhas = (hFinal - hInicio) / intervalo;
   const [colunaHorarios, setColunaHorarios] = useState<JSX.Element[]>([]);
   const [cards, setCards] = useState<JSX.Element[]>([]);
+  const linhas: JSX.Element[] = [];
+
+  for (let i = 0; i <= qtdLinhas; i++) {
+    for (let j = 0; j < 7; j++) {
+      linhas.push(<div className="card-invisible"></div>);
+    }
+  }
 
   // seta a coluna de horários na esquerda
   useEffect(() => {
@@ -88,10 +95,10 @@ const Grade = () => {
 
   return (
     <div className="flex flex-col ">
-      <div className="flex gap-5 border-b-2 py-6">
+      <div className="flex border-b-2 py-6">
         <div className="w-32"></div>
 
-        <div className="flex gap-x-5">
+        <div className="flex">
           <div className="flex w-32 items-center justify-center text-base font-bold text-neutral-800">
             DOM
           </div>
@@ -116,16 +123,17 @@ const Grade = () => {
         </div>
       </div>
 
-      <div className="flex gap-5">
-        <div className="">
-          <div className="w-32 text-base font-bold text-neutral-800">
-            {colunaHorarios.map((item, i) => (
-              <div key={i}>{item}</div>
-            ))}
-          </div>
+      <div className="flex">
+        <div className="coluna-horarios w-32 text-base font-bold text-neutral-800">
+          {colunaHorarios.map((item, i) => (
+            <div key={i}>{item}</div>
+          ))}
         </div>
 
-        <div className="grade">{cards.flat()}</div>
+        <div className="grade">
+          <div className="linhas">{linhas.flat()}</div>
+          {cards.flat()}
+        </div>
       </div>
     </div>
   );

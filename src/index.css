@@ -13,15 +13,34 @@
 }
 
 .grade {
+  position: relative;
   display: grid;
   width: 100%;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-template-rows: repeat(18, minmax(0, 1fr));
+  border: 1px solid red;
 }
 
 .card {
   padding: 5px;
   border-radius: 5px;
+  z-index: 2;
+}
+
+.card-invisible {
+  background-color: #fafafa;
+}
+
+.linhas {
+  position: absolute;
+  background-color: red;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  gap: 1px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(18, minmax(0, 1fr));
 }
 
 .row-start-1 {
