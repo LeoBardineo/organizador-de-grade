@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ConfigContext } from "../ConfigContext";
 import Card from "./Card";
 
 enum Dia {
@@ -12,6 +13,7 @@ enum Dia {
 }
 
 const Grade = () => {
+  const { checkLinhas } = useContext(ConfigContext);
   const materiasSelecionadas = [
     {
       id: "A",
@@ -130,8 +132,8 @@ const Grade = () => {
           ))}
         </div>
 
-        <div className="grade">
-          <div className="linhas">{linhas.flat()}</div>
+        <div className={checkLinhas ? "grade checkLinhas" : "grade"}>
+          <div className={checkLinhas ? "linhas checkLinhas" : "linhas"}>{linhas.flat()}</div>
           {cards.flat()}
         </div>
       </div>

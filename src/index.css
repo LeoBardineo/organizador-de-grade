@@ -18,6 +18,9 @@
   width: 100%;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-template-rows: repeat(18, minmax(0, 1fr));
+}
+
+.grade.checkLinhas {
   border: 1px solid red;
 }
 
@@ -32,6 +35,7 @@
 }
 
 .linhas {
+  opacity: 0;
   position: absolute;
   background-color: red;
   width: 100%;
@@ -41,6 +45,10 @@
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-template-rows: repeat(18, minmax(0, 1fr));
+}
+
+.linhas.checkLinhas {
+  opacity: 100%;
 }
 
 .row-start-1 {
