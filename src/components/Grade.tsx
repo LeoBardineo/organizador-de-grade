@@ -14,22 +14,23 @@ enum Dia {
 
 const Grade = () => {
   const { checkLinhas } = useContext(ConfigContext);
-  const materiasSelecionadas = [
+  const materiasSelecionadas: Materia[] = [
     {
       id: "A",
-      nome: "materia",
-      horarios: {
-        seg: { hInicial: 8, horas: 2 },
-        qua: { hInicial: 8, horas: 2 }
-      }
+      nome: "materia asdasdasdasdasdasd",
+      horarios: [
+        { dia: "seg", hInicial: 8, horas: 2 },
+        { dia: "qua", hInicial: 8, horas: 2 }
+      ]
     },
     {
       id: "B",
       nome: "materia 2",
-      horarios: {
-        seg: { hInicial: 13, horas: 2 },
-        qua: { hInicial: 10, horas: 2 }
-      }
+      horarios: [
+        { dia: "seg", hInicial: 13, horas: 2 },
+        { dia: "seg", hInicial: 22, horas: 1 },
+        { dia: "qua", hInicial: 10, horas: 2 }
+      ]
     }
   ];
   const [materias] = useState<Materia[]>(materiasSelecionadas);
@@ -54,7 +55,7 @@ const Grade = () => {
 
     for (let i = 0; i <= qtdLinhas; i++) {
       arrHorarios.push(
-        <div className="flex items-center justify-center py-1">{`${
+        <div className="flex items-center justify-center">{`${
           hInicio + i * intervalo
         }:00`}</div>
       );
@@ -70,13 +71,12 @@ const Grade = () => {
     let count = 0;
     materias.forEach((item) => {
       const horarios = item.horarios;
-      for (const key in horarios) {
-        const hInicial = horarios[key as keyof typeof horarios]?.hInicial;
-        const horas = horarios[key as keyof typeof horarios]?.horas;
-        const dia = Dia[key as keyof typeof horarios];
-
-        if (horas == undefined) return;
-        if (hInicial == undefined) return;
+      horarios.forEach(horario => {
+        const dia = horario.dia
+        const hInicial = horario.hInicial
+        const horas = horario.horas
+        
+        if(horas === undefined || hInicial === undefined || dia === undefined) return
 
         arrCards[count] = (
           <Card
@@ -85,11 +85,11 @@ const Grade = () => {
             nome={item.nome}
             hInicial={hInicial}
             horas={horas}
-            dia={dia}
+            dia={Dia[dia]}
           />
         );
         count++;
-      }
+      })
     });
 
     setCards(arrCards);
@@ -127,8 +127,8 @@ const Grade = () => {
 
       <div className="flex">
         <div className="coluna-horarios w-32 text-base font-bold text-neutral-800">
-          {colunaHorarios.map((item, i) => (
-            <div key={i}>{item}</div>
+          {colunaHorarios.map((item) => (
+            item
           ))}
         </div>
 

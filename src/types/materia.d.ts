@@ -1,4 +1,7 @@
+type DiaDaSemana = "dom" | "seg" | "ter" | "qua" | "qui" | "sex" | "sab";
+
 interface Horario {
+  dia: DiaDaSemana;
   hInicial: number;
   horas: number;
 }
@@ -6,13 +9,5 @@ interface Horario {
 interface Materia {
   id: string;
   nome: string;
-  horarios: {
-    dom?: Horario;
-    seg?: Horario;
-    ter?: Horario;
-    qua?: Horario;
-    qui?: Horario;
-    sex?: Horario;
-    sab?: Horario;
-  };
+  horarios: Horario[];
 }

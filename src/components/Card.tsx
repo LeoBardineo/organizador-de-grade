@@ -13,7 +13,7 @@ const Card = ({ id, nome, hInicial, horas, dia }: MateriaCard) => {
       row-end-${hInicial - 5 + horas} col-start-${dia + 1}`}
     >
       <h1>{id}</h1>
-      <h2>{nome}</h2>
+      {horas > 1 ? <h2>{nome}</h2> : ''}
     </div>
   );
 };
