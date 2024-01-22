@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { ConfigContext } from "../ConfigContext";
 import Card from "./Card";
+import axios from "axios";
 
 enum Dia {
   dom = 0,
@@ -15,25 +16,28 @@ enum Dia {
 const Grade = () => {
   const { checkLinhas } = useContext(ConfigContext);
   const materiasSelecionadas: Materia[] = [
-    {
-      id: "A",
-      nome: "materia asdasdasdasdasdasd",
-      horarios: [
-        { dia: "seg", hInicial: 8, horas: 2 },
-        { dia: "qua", hInicial: 8, horas: 2 }
-      ]
-    },
-    {
-      id: "B",
-      nome: "materia 2",
-      horarios: [
-        { dia: "seg", hInicial: 13, horas: 2 },
-        { dia: "seg", hInicial: 22, horas: 1 },
-        { dia: "qua", hInicial: 10, horas: 2 }
-      ]
-    }
+    // {
+    //   id: "A",
+    //   nome: "materia asdasdasdasdasdasd",
+    //   horarios: [
+    //     { dia: "seg", hInicial: 8, horas: 2 },
+    //     { dia: "qua", hInicial: 8, horas: 2 }
+    //   ]
+    // },
+    // {
+    //   id: "B",
+    //   nome: "materia 2",
+    //   horarios: [
+    //     { dia: "seg", hInicial: 13, horas: 2 },
+    //     { dia: "seg", hInicial: 22, horas: 1 },
+    //     { dia: "qua", hInicial: 10, horas: 2 }
+    //   ]
+    // }
+    // {id:"ICP145",nome:"Habilidades Sociais p Trabalho",horarios:[{dia:"ter",hInicial:10,horas:2},{dia:"qua",hInicial:9,horas:3}]},
+    {"id":"ICP246","nome":"Arquitet Comput e Sist Operac","horarios":[{"dia":"ter","hInicial":8,"horas":4},{"dia":"qua","hInicial":8,"horas":4},{"dia":"qui","hInicial":8,"horas":4}]}
   ];
-  const [materias] = useState<Materia[]>(materiasSelecionadas);
+  const [materias, setMaterias] = useState<Materia[]>(materiasSelecionadas);
+  const [todasMaterias, setTodasMaterias] = useState<Materia[]>();
 
   const hInicio = 6,
     hFinal = 23,
@@ -51,6 +55,12 @@ const Grade = () => {
 
   // seta a coluna de horários na esquerda
   useEffect(() => {
+    const fetchMaterias = async () => {
+      const result = await axios('http://localhost:5173/.cache/materias.json')
+      setTodasMaterias(result.data)
+      console.log(todasMaterias)
+    }
+
     const arrHorarios = [];
 
     for (let i = 0; i <= qtdLinhas; i++) {
@@ -62,6 +72,7 @@ const Grade = () => {
     }
 
     setColunaHorarios(arrHorarios);
+    fetchMaterias();
   }, []);
 
   // coloca os cards na grade

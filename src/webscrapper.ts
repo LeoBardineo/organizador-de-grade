@@ -1,5 +1,20 @@
 import axios, { AxiosError } from 'axios'
 import { JSDOM } from 'jsdom'
+import fs from 'fs'
+
+type DiaDaSemana = "dom" | "seg" | "ter" | "qua" | "qui" | "sex" | "sab";
+
+interface Horario {
+  dia: DiaDaSemana;
+  hInicial: number;
+  horas: number;
+}
+
+interface Materia {
+  id: string;
+  nome: string;
+  horarios: Horario[];
+}
 
 const URL_GRADE = "https://www.siga.ufrj.br/sira/inscricao/GradeHoraria.jsp?distribuicaoCurricular_oid=402FED54-92A4-F79C-3ACF-54A4EA89ED35"
 const materias:Materia[] = []
@@ -9,10 +24,10 @@ axios.get(URL_GRADE)
     .then(html => {
         const dom = new JSDOM(html)
         dom.window.document.querySelectorAll('.lineBorder').forEach(tabela => {
-            tabela.querySelectorAll('tr').forEach(tr => {
-                const id = tr.querySelector('td:nth-child(1)')?.textContent?.trim()
-                const nome = tr.querySelector('td:nth-child(2)')?.textContent?.trim()
-                const horarios = tr.querySelector('td:nth-child(4)')?.textContent?.trim()
+            tabela.querySelectorAll('tr').forEach(trMateria => {
+                const id = trMateria.querySelector('td:nth-child(1)')?.textContent?.trim()
+                const nome = trMateria.querySelector('td:nth-child(2)')?.textContent?.trim()
+                const horarios = trMateria.querySelector('td:nth-child(4)')?.textContent?.trim()
                 if(id === undefined || nome === undefined || horarios === undefined) return
                 const horariosMateria = horarios.split(/\s\s+/g)
                 const gradeMateria: Materia = {
@@ -37,6 +52,10 @@ axios.get(URL_GRADE)
             })
         })
     })
+    .then(() => {
+        fs.writeFile('./.cache/materias.json', JSON.stringify(materias), 'utf-8', () => console.log('Webscrapped :)'))
+    })
     .catch((error: AxiosError) => {
         console.log(error.toJSON())
     })
+
