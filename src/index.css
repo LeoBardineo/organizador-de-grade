@@ -67,6 +67,46 @@
   flex: 1;
 }
 
+.button-sidebar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+  margin-left: 10px;
+  border-radius: 6px;
+  font-size: 24px;
+  transition: 0.3s;
+}
+
+.button-sidebar:hover{
+  background-color: #bebebe;
+}
+
+.sidebar {
+  background-color: #bebebe;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.tabs {
+  display: flex;
+  width: 100%;
+  height: 4.5rem;
+}
+
+.tab-materia, .tab-config {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-config {
+  border-top-right-radius: 6px;
+}
+
 .row-start-1 { grid-row-start: 1; }
 .row-start-2 { grid-row-start: 2; }
 .row-start-3 { grid-row-start: 3; }

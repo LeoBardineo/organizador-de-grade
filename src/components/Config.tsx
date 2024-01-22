@@ -9,7 +9,7 @@ const Config = () => {
     }
 
     return (
-        <div className="w-40 pt-20 pl-4">
+        <>
           <h1>Configurações</h1>
           <input type="checkbox"
             id="checkLinhas"
@@ -19,7 +19,7 @@ const Config = () => {
             onChange={handleChange}
           />
           <label htmlFor="checkLinhas">Linhas</label>
-        </div>
+        </>
     );
 };
 

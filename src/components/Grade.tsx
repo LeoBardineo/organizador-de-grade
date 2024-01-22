@@ -107,7 +107,7 @@ const Grade = () => {
   }, [materias]);
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col rounded-md bg-neutral-50 shadow-lg ">
       <div className="flex border-b-2 py-6">
         <div className="w-32"></div>
 
