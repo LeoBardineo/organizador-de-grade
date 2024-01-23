@@ -1,6 +1,7 @@
 import "./index.css";
 import Grade from "./components/Grade";
-import Config from "./components/Config";
+import ConfigTab from "./components/ConfigTab";
+import MateriasTab from "./components/MateriasTab";
 import { ConfigContext } from "./ConfigContext";
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
@@ -9,6 +10,7 @@ import { RiArrowLeftDoubleLine, RiArrowRightDoubleLine } from 'react-icons/ri'
 const App = () => {
   const [checkLinhas, setCheckLinhas] = useState(false)
   const [sidebar, setSidebar] = useState(true)
+  const [isSidebarMateria, setIsSidebarMateria] = useState(true)
   
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-slate-200">
@@ -18,12 +20,13 @@ const App = () => {
       <div className="flex">
         <ConfigContext.Provider value={{
             checkLinhas, setCheckLinhas,
-            sidebar, setSidebar
+            sidebar, setSidebar,
+            isSidebarMateria, setIsSidebarMateria
           }}>
           <Grade />
           {sidebar ?
             <Sidebar>
-              <Config/>
+              {isSidebarMateria ? <MateriasTab/> : <ConfigTab/>}
             </Sidebar>
           : <></>
           }

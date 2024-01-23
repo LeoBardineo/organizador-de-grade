@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ConfigContext } from "../ConfigContext";
 
-const Config = () => {
+const ConfigTab = () => {
     const { checkLinhas, setCheckLinhas } = useContext(ConfigContext);
 
     const handleChange = () => {
@@ -23,4 +23,4 @@ const Config = () => {
     );
 };
 
-export default Config;
+export default ConfigTab;

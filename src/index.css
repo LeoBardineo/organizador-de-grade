@@ -81,11 +81,11 @@
 }
 
 .button-sidebar:hover{
-  background-color: #bebebe;
+  background-color: #0000002f;
 }
 
 .sidebar {
-  background-color: #bebebe;
+  background-color: #0000002f;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
@@ -105,6 +105,11 @@
 
 .tab-config {
   border-top-right-radius: 6px;
+}
+
+.tab-ativa {
+  color: white;
+  background-color: #000000bd;
 }
 
 .row-start-1 { grid-row-start: 1; }

@@ -5,11 +5,15 @@ interface IConfigContext {
     setCheckLinhas: Dispatch<SetStateAction<boolean>>,
     sidebar: boolean,
     setSidebar: Dispatch<SetStateAction<boolean>>,
+    isSidebarMateria: boolean,
+    setIsSidebarMateria: Dispatch<SetStateAction<boolean>>,
 }
 
 export const ConfigContext = createContext<IConfigContext>({
     checkLinhas: false,
     setCheckLinhas: () => { /* nada acontece feijoada */},
     sidebar: true,
-    setSidebar: () => {  }
+    setSidebar: () => {  },
+    isSidebarMateria: true,
+    setIsSidebarMateria: () => {  },
 })
