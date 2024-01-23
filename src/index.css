@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --border-line: 1px;
+  --line-color: #bebfc2;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -20,7 +25,7 @@
 }
 
 .grade.checkLinhas {
-  border: 1px solid red;
+  border: var(--border-line) solid var(--line-color);
 }
 
 .card {
@@ -43,11 +48,11 @@
 .linhas {
   opacity: 0;
   position: absolute;
-  background-color: red;
+  background-color: var(--line-color);
   width: 100%;
   height: 100%;
   z-index: 1;
-  gap: 1px;
+  gap: var(--border-line);
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-template-rows: repeat(18, minmax(0, 1fr));
