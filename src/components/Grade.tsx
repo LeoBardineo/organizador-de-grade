@@ -37,7 +37,6 @@ const Grade = () => {
     {"id":"ICP246","nome":"Arquitet Comput e Sist Operac","horarios":[{"dia":"ter","hInicial":8,"horas":4},{"dia":"qua","hInicial":8,"horas":4},{"dia":"qui","hInicial":8,"horas":4}]}
   ];
   const [materias, setMaterias] = useState<Materia[]>(materiasSelecionadas);
-  const [todasMaterias, setTodasMaterias] = useState<Materia[]>();
 
   const hInicio = 6,
     hFinal = 23,
@@ -55,12 +54,6 @@ const Grade = () => {
 
   // seta a coluna de horários na esquerda
   useEffect(() => {
-    const fetchMaterias = async () => {
-      const result = await axios('http://localhost:5173/.cache/materias.json')
-      setTodasMaterias(result.data)
-      console.log(todasMaterias)
-    }
-
     const arrHorarios = [];
 
     for (let i = 0; i <= qtdLinhas; i++) {
@@ -72,7 +65,6 @@ const Grade = () => {
     }
 
     setColunaHorarios(arrHorarios);
-    fetchMaterias();
   }, []);
 
   // coloca os cards na grade
