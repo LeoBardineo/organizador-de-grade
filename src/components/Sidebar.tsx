@@ -6,7 +6,7 @@ const Sidebar:FC<{ children: ReactNode }>  = ({children}) => {
     const { isSidebarMateria, setIsSidebarMateria } = useContext(ConfigContext);
     console.log('renderizou sidebar');
     return (
-        <div className="w-40 sidebar">
+        <div className="w-60 sidebar">
             <div className="tabs">
                 <button className={`tab-materia ${isSidebarMateria ? 'tab-ativa' : ''}`}
                         onClick={() => setIsSidebarMateria(true)} >
@@ -17,7 +17,7 @@ const Sidebar:FC<{ children: ReactNode }>  = ({children}) => {
                     {!isSidebarMateria ? <RiSettingsFill /> : <RiSettingsLine />}
                 </button>
             </div>
-            <div className='pl-4 pt-4'>
+            <div className='pl-4 pt-4 pr-4'>
                 {children}
             </div>
         </div>

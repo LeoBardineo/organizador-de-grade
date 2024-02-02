@@ -7,6 +7,8 @@ interface IConfigContext {
     setSidebar: Dispatch<SetStateAction<boolean>>,
     isSidebarMateria: boolean,
     setIsSidebarMateria: Dispatch<SetStateAction<boolean>>,
+    todosMateriasCards: JSX.Element[] | undefined,
+    setTodosMateriasCards: Dispatch<SetStateAction<JSX.Element[] | undefined>>
 }
 
 export const ConfigContext = createContext<IConfigContext>({
@@ -16,4 +18,6 @@ export const ConfigContext = createContext<IConfigContext>({
     setSidebar: () => {  },
     isSidebarMateria: true,
     setIsSidebarMateria: () => {  },
+    todosMateriasCards: [],
+    setTodosMateriasCards: () => {  }
 })

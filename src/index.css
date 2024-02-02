@@ -116,3 +116,11 @@
   color: white;
   background-color: #000000bd;
 }
+
+.materia-card-tab {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #ef4444;
+  cursor: pointer;
+}

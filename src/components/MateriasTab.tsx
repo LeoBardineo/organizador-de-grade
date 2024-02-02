@@ -1,26 +1,9 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import MateriaCard from "./MateriaCard";
+import { useContext, useEffect, useState } from "react";
+import { ConfigContext } from "../ConfigContext";
 
 const MateriasTab = () => {
-    const [todasMaterias, setTodasMaterias] = useState<Materia[]>();
-    const [todosMateriasCards, setTodosMateriasCards] = useState<JSX.Element[]>();
-
-    useEffect(() => {
-        const fetchMaterias = async () => {
-            const result = await axios(`${window.location.href}.cache/materias.json`)
-            setTodasMaterias(result.data)
-            
-            const todosCards:JSX.Element[] = []
-            todasMaterias?.forEach(({id, nome, horarios}) => {
-                todosCards.push(<MateriaCard id={id} nome={nome} horarios={horarios} />)
-            })
-            setTodosMateriasCards(todosCards)
-        }
-
-        fetchMaterias();
-    }, [])
-
+    const { todosMateriasCards } = useContext(ConfigContext);
+    console.log(todosMateriasCards)
     return (
         <>
             {todosMateriasCards?.flat()}
