@@ -14,29 +14,8 @@ enum Dia {
 }
 
 const Grade = () => {
-  const { checkLinhas } = useContext(ConfigContext);
-  const materiasSelecionadas: Materia[] = [
-    // {
-    //   id: "A",
-    //   nome: "materia asdasdasdasdasdasd",
-    //   horarios: [
-    //     { dia: "seg", hInicial: 8, horas: 2 },
-    //     { dia: "qua", hInicial: 8, horas: 2 }
-    //   ]
-    // },
-    // {
-    //   id: "B",
-    //   nome: "materia 2",
-    //   horarios: [
-    //     { dia: "seg", hInicial: 13, horas: 2 },
-    //     { dia: "seg", hInicial: 22, horas: 1 },
-    //     { dia: "qua", hInicial: 10, horas: 2 }
-    //   ]
-    // }
-    // {id:"ICP145",nome:"Habilidades Sociais p Trabalho",horarios:[{dia:"ter",hInicial:10,horas:2},{dia:"qua",hInicial:9,horas:3}]},
-    {"id":"ICP246","nome":"Arquitet Comput e Sist Operac","horarios":[{"dia":"ter","hInicial":8,"horas":4},{"dia":"qua","hInicial":8,"horas":4},{"dia":"qui","hInicial":8,"horas":4}]}
-  ];
-  const [materias, setMaterias] = useState<Materia[]>(materiasSelecionadas);
+  const { checkLinhas, materiasSelecionadas } = useContext(ConfigContext);
+  const { todasMaterias, setTodasMaterias } = useContext(ConfigContext)
 
   const hInicio = 6,
     hFinal = 23,
@@ -65,15 +44,27 @@ const Grade = () => {
     }
 
     setColunaHorarios(arrHorarios);
+
+    const fetchMaterias = async () => {
+        const result = await fetch(`${window.location.href}.cache/materias.json`)
+        const json = await result.json()
+        setTodasMaterias(json)
+        console.log('fetch:')
+        console.log(json)
+        console.log('state:')
+        console.log(todasMaterias)
+    }
+
+    fetchMaterias();
   }, []);
 
   // coloca os cards na grade
   useEffect(() => {
-    const arrCards: JSX.Element[] = [...cards];
+    const arrCards: JSX.Element[] = [];
 
     let count = 0;
-    materias.forEach((item) => {
-      const horarios = item.horarios;
+    if(materiasSelecionadas === undefined) return
+    materiasSelecionadas.forEach(({id, nome, horarios}) => {
       horarios.forEach(horario => {
         const dia = horario.dia
         const hInicial = horario.hInicial
@@ -83,9 +74,9 @@ const Grade = () => {
 
         arrCards[count] = (
           <Card
-            key={`${item.id}+${count}`}
-            id={item.id}
-            nome={item.nome}
+            key={`${id}+${count}`}
+            id={id}
+            nome={nome}
             hInicial={hInicial}
             horas={horas}
             dia={Dia[dia]}
@@ -94,9 +85,11 @@ const Grade = () => {
         count++;
       })
     });
-
+    
     setCards(arrCards);
-  }, [materias]);
+    console.log('renderizou os cards')
+    console.log(arrCards)
+  }, [materiasSelecionadas]);
 
   return (
     <div className="flex flex-col rounded-md bg-neutral-50 shadow-lg ">

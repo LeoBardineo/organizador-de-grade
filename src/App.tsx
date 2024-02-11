@@ -14,22 +14,7 @@ const App = () => {
   const [sidebar, setSidebar] = useState(true)
   const [isSidebarMateria, setIsSidebarMateria] = useState(true)
   const [todasMaterias, setTodasMaterias] = useState<Materia[]>();
-  const [todosMateriasCards, setTodosMateriasCards] = useState<JSX.Element[]>();
-  
-  useEffect(() => {
-    const fetchMaterias = async () => {
-        const result = await axios(`${window.location.href}.cache/materias.json`)
-        setTodasMaterias(result.data)
-        
-        const todosCards:JSX.Element[] = []
-        todasMaterias?.forEach(({id, nome, horarios}) => {
-            todosCards.push(<MateriaCard id={id} nome={nome} horarios={horarios} />)
-        })
-        setTodosMateriasCards(todosCards)
-    }
-
-    fetchMaterias();
-  }, [])
+  const [materiasSelecionadas, setMateriasSelecionadas] = useState<Materia[]>();
   
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-slate-200">
@@ -41,7 +26,8 @@ const App = () => {
             checkLinhas, setCheckLinhas,
             sidebar, setSidebar,
             isSidebarMateria, setIsSidebarMateria,
-            todosMateriasCards, setTodosMateriasCards
+            todasMaterias, setTodasMaterias,
+            materiasSelecionadas, setMateriasSelecionadas
           }}>
           <Grade />
           {sidebar ?

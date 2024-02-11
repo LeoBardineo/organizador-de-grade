@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { ConfigContext } from "../ConfigContext";
+import MateriaCard from "./MateriaCard";
 
 const MateriasTab = () => {
-    const { todosMateriasCards } = useContext(ConfigContext);
-    console.log(todosMateriasCards)
+    const { todasMaterias } = useContext(ConfigContext);
+
     return (
-        <>
-            {todosMateriasCards?.flat()}
-        </>
+        <div>
+            {todasMaterias?.map(({id, nome, horarios}) => <MateriaCard key={id} id={id} nome={nome} horarios={horarios} />)}
+        </div>
     )
 }
 

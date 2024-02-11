@@ -3,12 +3,18 @@ import { createContext, Dispatch, SetStateAction } from "react";
 interface IConfigContext {
     checkLinhas: boolean,
     setCheckLinhas: Dispatch<SetStateAction<boolean>>,
+
     sidebar: boolean,
     setSidebar: Dispatch<SetStateAction<boolean>>,
+
     isSidebarMateria: boolean,
     setIsSidebarMateria: Dispatch<SetStateAction<boolean>>,
-    todosMateriasCards: JSX.Element[] | undefined,
-    setTodosMateriasCards: Dispatch<SetStateAction<JSX.Element[] | undefined>>
+
+    todasMaterias: Materia[] | undefined,
+    setTodasMaterias: Dispatch<SetStateAction<Materia[] | undefined>>,
+
+    materiasSelecionadas: Materia[] | undefined,
+    setMateriasSelecionadas: Dispatch<SetStateAction<Materia[] | undefined>>,
 }
 
 export const ConfigContext = createContext<IConfigContext>({
@@ -18,6 +24,8 @@ export const ConfigContext = createContext<IConfigContext>({
     setSidebar: () => {  },
     isSidebarMateria: true,
     setIsSidebarMateria: () => {  },
-    todosMateriasCards: [],
-    setTodosMateriasCards: () => {  }
+    todasMaterias: [],
+    setTodasMaterias: () => {  },
+    materiasSelecionadas: [],
+    setMateriasSelecionadas: () => {  },
 })
