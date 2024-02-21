@@ -84,7 +84,6 @@ const Grade = () => {
             const fimMateria1 = hInicial + horas
 
             if(
-              (hInicial <= fimMateria2) && (hInicial2 >= fimMateria1) ||
               (fimMateria1 > hInicial2 && fimMateria1 <= fimMateria2) ||
               (hInicial <= hInicial2 && fimMateria1 >= fimMateria2))
             {
