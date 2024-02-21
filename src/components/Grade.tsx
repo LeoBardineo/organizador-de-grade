@@ -64,13 +64,35 @@ const Grade = () => {
 
     let count = 0;
     if(materiasSelecionadas === undefined) return
-    materiasSelecionadas.forEach(({id, nome, horarios}) => {
+    materiasSelecionadas.forEach((materia1) => {
+      const { id, nome, horarios } = materia1
       horarios.forEach(horario => {
+        let sobreposicoes: [string, number][] = []
         const dia = horario.dia
         const hInicial = horario.hInicial
         const horas = horario.horas
         
         if(horas === undefined || hInicial === undefined || dia === undefined) return
+        sobreposicoes.push([id, hInicial])
+        let qtdSobreposicao = 0
+        materiasSelecionadas.forEach((materia2) => {
+          materia2.horarios.forEach(horario2 => {
+            if(materia2.id === id || horario2.dia !== dia) return
+
+            const hInicial2 = horario2.hInicial
+            const fimMateria2 = horario2.hInicial + horario2.horas
+            const fimMateria1 = hInicial + horas
+
+            if(
+              (hInicial <= fimMateria2) && (hInicial2 >= fimMateria1) ||
+              (fimMateria1 > hInicial2 && fimMateria1 <= fimMateria2) ||
+              (hInicial <= hInicial2 && fimMateria1 >= fimMateria2))
+            {
+              sobreposicoes.push([materia2.id, hInicial2])
+              qtdSobreposicao += 1
+            }
+          })
+        })
 
         arrCards[count] = (
           <Card
@@ -80,6 +102,8 @@ const Grade = () => {
             hInicial={hInicial}
             horas={horas}
             dia={Dia[dia]}
+            qtdSobreposicao={qtdSobreposicao}
+            sobreposicoes={sobreposicoes}
           />
         );
         count++;

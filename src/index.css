@@ -31,8 +31,7 @@
 .card {
   padding: 5px;
   border-radius: 5px;
-  z-index: 2;
-  width: calc(128px/1);
+  height: 100%;
 }
 
 .card > h1, .card > h2 {
