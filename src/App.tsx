@@ -3,11 +3,9 @@ import Grade from "./components/Grade";
 import ConfigTab from "./components/ConfigTab";
 import MateriasTab from "./components/MateriasTab";
 import { ConfigContext } from "./ConfigContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import { RiArrowLeftDoubleLine, RiArrowRightDoubleLine } from 'react-icons/ri'
-import axios from "axios";
-import MateriaCard from "./components/MateriaCard";
 
 const App = () => {
   const [checkLinhas, setCheckLinhas] = useState(false)

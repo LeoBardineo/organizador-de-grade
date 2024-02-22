@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { ConfigContext } from "../ConfigContext";
 import Card from "./Card";
-import axios from "axios";
 
 enum Dia {
   dom = 0,
@@ -15,23 +14,21 @@ enum Dia {
 
 const Grade = () => {
   const { checkLinhas, materiasSelecionadas } = useContext(ConfigContext);
-  const { todasMaterias, setTodasMaterias } = useContext(ConfigContext)
-
-  const hInicio = 6,
-    hFinal = 23,
-    intervalo = 1;
-  const qtdLinhas = (hFinal - hInicio) / intervalo;
+  const { setTodasMaterias } = useContext(ConfigContext)
   const [colunaHorarios, setColunaHorarios] = useState<JSX.Element[]>([]);
   const [cards, setCards] = useState<JSX.Element[]>([]);
-  const linhas: JSX.Element[] = [];
 
+  const hInicio = 6, hFinal = 23, intervalo = 1;
+  const qtdLinhas = (hFinal - hInicio) / intervalo;
+
+  const linhas: JSX.Element[] = [];
   for (let i = 0; i <= qtdLinhas; i++) {
     for (let j = 0; j < 7; j++) {
       linhas.push(<div className="card-invisible"></div>);
     }
   }
 
-  // seta a coluna de horários na esquerda
+  // seta a coluna de horários na esquerda e dá fetch em todas as matérias
   useEffect(() => {
     const arrHorarios = [];
 
@@ -49,10 +46,6 @@ const Grade = () => {
         const result = await fetch(`${window.location.href}.cache/materias.json`)
         const json = await result.json()
         setTodasMaterias(json)
-        console.log('fetch:')
-        console.log(json)
-        console.log('state:')
-        console.log(todasMaterias)
     }
 
     fetchMaterias();
@@ -68,9 +61,7 @@ const Grade = () => {
       const { id, nome, horarios } = materia1
       horarios.forEach(horario => {
         let sobreposicoes: [string, number][] = []
-        const dia = horario.dia
-        const hInicial = horario.hInicial
-        const horas = horario.horas
+        const { dia, hInicial, horas } = horario
         
         if(horas === undefined || hInicial === undefined || dia === undefined) return
         sobreposicoes.push([id, hInicial])
@@ -110,8 +101,6 @@ const Grade = () => {
     });
     
     setCards(arrCards);
-    console.log('renderizou os cards')
-    console.log(arrCards)
   }, [materiasSelecionadas]);
 
   return (

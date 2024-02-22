@@ -64,7 +64,6 @@
 .coluna-horarios {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-evenly; */
 }
 
 .coluna-horarios > div {

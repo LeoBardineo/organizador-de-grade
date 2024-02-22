@@ -4,7 +4,7 @@ import { RiBookLine, RiSettingsLine, RiBookFill, RiSettingsFill } from 'react-ic
 
 const Sidebar:FC<{ children: ReactNode }>  = ({children}) => {
     const { isSidebarMateria, setIsSidebarMateria } = useContext(ConfigContext);
-    console.log('renderizou sidebar');
+    
     return (
         <div className="w-60 sidebar">
             <div className="tabs">

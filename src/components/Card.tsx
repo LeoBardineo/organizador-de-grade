@@ -15,7 +15,7 @@ const Card = ({ id, nome, hInicial, horas, dia, qtdSobreposicao, sobreposicoes }
   })
   const numMargin = sobreposicoesSorted.findIndex(materia => (materia[0] === id ))
   const marginL = qtdSobreposicao > 0 && numMargin > 0 ? 128/(qtdSobreposicao+1) * numMargin : 0
-  if(id === 'ICP362' || id === 'ICP246') console.log('aaaaaaaaaaaaaaaaaaa ' + id + ' ' + qtdSobreposicao + ' ' + numMargin + ' ' + marginL + ' ' + sobreposicoesSorted)
+  
   return (
     <div
       style={{zIndex: 2,

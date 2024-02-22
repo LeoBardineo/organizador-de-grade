@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ConfigContext } from "../ConfigContext";
 import MateriaCard from "./MateriaCard";
 
@@ -7,7 +7,9 @@ const MateriasTab = () => {
 
     return (
         <div>
-            {todasMaterias?.map(({id, nome, horarios}) => <MateriaCard key={id} id={id} nome={nome} horarios={horarios} />)}
+            {todasMaterias?.map(({id, nome, horarios}) =>
+                <MateriaCard key={id} id={id} nome={nome} horarios={horarios} />
+            )}
         </div>
     )
 }
