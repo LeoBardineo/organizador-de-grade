@@ -14,25 +14,34 @@ interface Materia {
   id: string;
   nome: string;
   horarios: Horario[];
+  periodo: string;
 }
 
 const URL_GRADE = "https://www.siga.ufrj.br/sira/inscricao/GradeHoraria.jsp?distribuicaoCurricular_oid=402FED54-92A4-F79C-3ACF-54A4EA89ED35";
 
 (async () => {
     const materias:Materia[] = [];
-    const html = await (await axios.get(URL_GRADE)).data
+    const html = await (await axios.get(URL_GRADE,
+        {
+            responseType: 'arraybuffer',
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+        }
+    )).data.toString('latin1')
     const dom = new JSDOM(html)
     dom.window.document.querySelectorAll('.lineBorder').forEach(tabela => {
+        const periodo = tabela.previousElementSibling?.querySelector('a > b')?.innerHTML
+        // console.log(periodo)
         tabela.querySelectorAll('tr').forEach(trMateria => {
             const id = trMateria.querySelector('td:nth-child(1)')?.textContent?.trim()
             const nome = trMateria.querySelector('td:nth-child(2)')?.textContent?.trim()
             const horarios = trMateria.querySelector('td:nth-child(4)')?.textContent?.trim()
-            if(id === undefined || nome === undefined || horarios === undefined) return
+            if(id === undefined || nome === undefined || horarios === undefined || periodo === undefined) return
             const horariosMateria = horarios.split(/\s\s+/g)
             const gradeMateria: Materia = {
                 id,
                 nome,
-                horarios: []
+                horarios: [],
+                periodo,
             }
 
             horariosMateria.forEach(horario => {
@@ -43,12 +52,12 @@ const URL_GRADE = "https://www.siga.ufrj.br/sira/inscricao/GradeHoraria.jsp?dist
                 gradeMateria.horarios.push({dia, hInicial, horas })
             })
 
-            console.log(gradeMateria.id)
-            console.log(gradeMateria.nome)
-            console.log(gradeMateria.horarios)
-            console.log('===========')
+            // console.log(gradeMateria.id)
+            // console.log(gradeMateria.nome)
+            // console.log(gradeMateria.horarios)
+            // console.log('===========')
             materias.push(gradeMateria)
         })
     })
-    fs.writeFile('./.cache/materias.json', JSON.stringify(materias, null, '\t'), 'utf-8', () => console.log('Webscrapped :)'))
+    fs.writeFile('./.cache/materias2.json', JSON.stringify(materias, null, '\t'), 'utf-8', () => console.log('Webscrapped :)'))
 })()

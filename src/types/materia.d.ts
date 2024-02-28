@@ -10,4 +10,5 @@ interface Materia {
   id: string;
   nome: string;
   horarios: Horario[];
+  periodo: string;
 }
