@@ -11,7 +11,7 @@ const App = () => {
   const [checkLinhas, setCheckLinhas] = useState(false)
   const [sidebar, setSidebar] = useState(true)
   const [isSidebarMateria, setIsSidebarMateria] = useState(true)
-  const [todasMaterias, setTodasMaterias] = useState<Materia[]>();
+  const [todasMaterias, setTodasMaterias] = useState<Periodo>();
   const [materiasSelecionadas, setMateriasSelecionadas] = useState<Materia[]>();
   
   return (

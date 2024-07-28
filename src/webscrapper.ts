@@ -10,17 +10,20 @@ interface Horario {
   horas: number;
 }
 
+interface Periodo {
+    [key: string]: Materia[];
+}
+
 interface Materia {
   id: string;
   nome: string;
   horarios: Horario[];
-  periodo: string;
 }
 
 const URL_GRADE = "https://www.siga.ufrj.br/sira/inscricao/GradeHoraria.jsp?distribuicaoCurricular_oid=402FED54-92A4-F79C-3ACF-54A4EA89ED35";
 
 (async () => {
-    const materias:Materia[] = [];
+    const periodos:Periodo = {}
     const html = await (await axios.get(URL_GRADE,
         {
             responseType: 'arraybuffer',
@@ -29,19 +32,21 @@ const URL_GRADE = "https://www.siga.ufrj.br/sira/inscricao/GradeHoraria.jsp?dist
     )).data.toString('latin1')
     const dom = new JSDOM(html)
     dom.window.document.querySelectorAll('.lineBorder').forEach(tabela => {
+        const materias:Materia[] = [];
         const periodo = tabela.previousElementSibling?.querySelector('a > b')?.innerHTML
         // console.log(periodo)
+        if(periodo === undefined) return;
         tabela.querySelectorAll('tr').forEach(trMateria => {
             const id = trMateria.querySelector('td:nth-child(1)')?.textContent?.trim()
             const nome = trMateria.querySelector('td:nth-child(2)')?.textContent?.trim()
             const horarios = trMateria.querySelector('td:nth-child(4)')?.textContent?.trim()
-            if(id === undefined || nome === undefined || horarios === undefined || periodo === undefined) return
+            if(id === undefined || nome === undefined || horarios === undefined) return
             const horariosMateria = horarios.split(/\s\s+/g)
+
             const gradeMateria: Materia = {
                 id,
                 nome,
                 horarios: [],
-                periodo,
             }
 
             horariosMateria.forEach(horario => {
@@ -58,6 +63,15 @@ const URL_GRADE = "https://www.siga.ufrj.br/sira/inscricao/GradeHoraria.jsp?dist
             // console.log('===========')
             materias.push(gradeMateria)
         })
+
+        materias.forEach(materia1 => {
+            const quantidadeIdRepetido = materias.filter(materia2 => materia1.id === materia2.id).length
+            if(quantidadeIdRepetido <= 1) return
+            const novoId = materia1.id + '.' + quantidadeIdRepetido
+            materia1.id = novoId
+        })
+
+        periodos[periodo] = materias
     })
-    fs.writeFile('./.cache/materias2.json', JSON.stringify(materias, null, '\t'), 'utf-8', () => console.log('Webscrapped :)'))
+    fs.writeFile('./.cache/materias.json', JSON.stringify(periodos, null, '\t'), 'utf-8', () => console.log('Webscrapped :)'))
 })()

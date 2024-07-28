@@ -91,6 +91,8 @@
   background-color: #0000002f;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  max-height: 650px;
+  overflow-y: auto;
 }
 
 .tabs {
@@ -120,5 +122,13 @@
   margin-bottom: 10px;
   border-radius: 8px;
   background-color: #ef4444;
+  cursor: pointer;
+}
+
+.dropdown {
+  background-color: #fafafa;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
   cursor: pointer;
 }

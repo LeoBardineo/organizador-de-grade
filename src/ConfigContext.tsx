@@ -10,8 +10,8 @@ interface IConfigContext {
     isSidebarMateria: boolean,
     setIsSidebarMateria: Dispatch<SetStateAction<boolean>>,
 
-    todasMaterias: Materia[] | undefined,
-    setTodasMaterias: Dispatch<SetStateAction<Materia[] | undefined>>,
+    todasMaterias: Periodo | undefined,
+    setTodasMaterias: Dispatch<SetStateAction<Periodo | undefined>>,
 
     materiasSelecionadas: Materia[] | undefined,
     setMateriasSelecionadas: Dispatch<SetStateAction<Materia[] | undefined>>,
@@ -24,7 +24,7 @@ export const ConfigContext = createContext<IConfigContext>({
     setSidebar: () => {  },
     isSidebarMateria: true,
     setIsSidebarMateria: () => {  },
-    todasMaterias: [],
+    todasMaterias: {},
     setTodasMaterias: () => {  },
     materiasSelecionadas: [],
     setMateriasSelecionadas: () => {  },
