@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --border-line: 1px;
+  --line-color: #bebfc2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Inter;
+}
+
+.grade {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, 8rem);
+  grid-template-rows: repeat(18, 32px);
+}
+
+.grade.checkLinhas {
+  border: var(--border-line) solid var(--line-color);
+}
+
+.card {
+  padding: 5px;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.card>h1,
+.card>h2 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.card-invisible {
+  background-color: #fafafa;
+}
+
+.linhas {
+  opacity: 0;
+  position: absolute;
+  background-color: var(--line-color);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  gap: var(--border-line);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(18, minmax(0, 1fr));
+}
+
+.linhas.checkLinhas {
+  opacity: 100%;
+}
+
+.coluna-horarios {
+  display: flex;
+  flex-direction: column;
+}
+
+.coluna-horarios>div {
+  flex: 1;
+}
+
+.button-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+  margin-left: 10px;
+  border-radius: 6px;
+  font-size: 24px;
+  transition: 0.3s;
+}
+
+.button-sidebar:hover {
+  background-color: #0000002f;
+}
+
+.sidebar {
+  background-color: #0000002f;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  height: 750px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+  height: 4.5rem;
+}
+
+.tab-materia,
+.tab-config {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-config {
+  border-top-right-radius: 6px;
+}
+
+.tab-ativa {
+  color: white;
+  background-color: #000000bd;
+}
+
+.materia-card-tab {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #ef4444;
+  cursor: pointer;
+}
+
+.dropdown {
+  background-color: #fafafa;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
